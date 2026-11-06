@@ -1,37 +1,222 @@
 # NutriOrder AI — Project Status
 
-**Status snapshot:** 2026-11-06. This file describes implemented prototype behavior; server availability is temporary and depends on running the local commands below.
+**Last Updated:** 2026-11-06  
+**Project Status:** Active Development – Functional Prototype
 
-## Implemented
+This document describes the currently implemented features, local execution instructions, test results, and known limitations of NutriOrder AI.
 
-- Flask API with SQLite initialization, additive schema updates, and seeded restaurant/reference food data.
-- Static customer pages for home, menu, NutriBot, NutriMatch, registration/sign-in, cart, and orders.
-- Menu search, category/diet/budget filters, sorting, item details, and 16 local representative photos in `images/`. Photos are not marked restaurant-verified. Pending catalog dishes intentionally have no specific photo, confirmed price, nutrition, or availability.
-- NutriBot local retrieval over the live SQLite menu and curated documents; structured menu/health responses; optional Gemini responses and optional Chroma semantic retrieval.
-- Deterministic NutriMatch scoring with allergy/dietary filters and an explicit verification path for uncertain records.
-- Customer registration, sign-in, session, password reset, order submission/history, and owner/admin order routes. Order submission checks database prices and blocks pending/unavailable items.
-- Test suite: 37 tests passed with `python -m unittest discover -s tests -v` during this status review.
+The application is a Tamil Nadu-focused restaurant menu, ordering demo, and food-discovery platform built with HTML, CSS, JavaScript, Flask, and SQLite.
 
-## Run locally
+---
 
-From the project root, install requirements with `python -m pip install -r requirements.txt`. Start the backend with `python backend/app.py`, then in a second terminal run `python -m http.server 8000`. Open `http://localhost:8000/frontend/index.html`. The API health check is `http://127.0.0.1:5000/api/test`.
+## 1. Implementation Status
 
-The API initializes/seeds the default root-level `nutriorder.db` at startup. Set `NUTRIORDER_DB` to use another database file. Python 3.10+ is required. See [README.md](README.md) for optional environment variables and Gemini/SMTP setup.
+### Backend & Database
+- Flask REST API implemented.
+- SQLite database initialization and automatic seeding.
+- Additive database schema updates.
+- Food catalog and restaurant reference data management.
+- Server-side food ID and price validation.
+- API health-check endpoint.
 
-## Demo accounts
+### Frontend
+- Static HTML, CSS, and JavaScript architecture.
+- Home and restaurant menu pages.
+- Menu search and filtering.
+- Category, dietary preference, and budget filters.
+- Food sorting and item details.
+- Browser-local shopping cart.
+- Customer order submission and order history.
+- Registration and sign-in pages.
+- NutriBot and NutriMatch interfaces.
 
-Local-only seed accounts:
+### NutriBot – AI Food Assistant
+- Local retrieval using live SQLite menu data.
+- Curated Markdown and TXT knowledge document retrieval.
+- Structured food and health-suitability responses.
+- Optional Google Gemini integration.
+- Optional Chroma semantic retrieval.
+- Evidence-based responses with unknown information handled conservatively.
+- Baseline keyword retrieval works without external AI services.
 
-- Customer: `customer` or `customer@nutriorder.local` / `1234`
-- Owner: `bakery` or `owner@nutriorder.local` / `1234`
+### NutriMatch – Recommendation Engine
+- Deterministic weighted preference matching.
+- Goal, nutrition, cuisine, taste, budget, and meal preferences.
+- Allergy and dietary filtering.
+- Verification handling for uncertain food records.
+- Request-scoped preference selections.
 
-Never reuse these credentials for real accounts or expose the demo publicly.
+### Customer Authentication & Orders
+- Customer registration and sign-in.
+- Password hashing using Werkzeug.
+- Session handling with HTTP-only and SameSite cookies.
+- Password reset endpoints.
+- Optional SMTP-based reset email delivery.
+- Customer order submission and history.
+- Owner/admin order routes.
+- Server-side order validation against current database prices.
+- Pending and unavailable food items blocked from ordering.
 
-## Known limitations and safety
+### Food Catalog & Images
+- 16 seeded sample food offers.
+- 55 pending traditional food references.
+- 16 local representative food photos under `images/`.
+- Fallback illustrations for pending dishes.
+- Image verification status maintained in records.
 
-- This is not production-ready. Authentication, authorization, session-secret defaults, reset delivery, and deployment settings need a security review and hardening. Password hashing and HTTP-only/same-site cookies are implemented, but registration does not verify email. Reset links are delivered only when SMTP is configured.
-- No production payment processing or live inventory is implemented. Full menu administration, owner/admin analytics, subscriptions, and deployment operations remain incomplete.
-- Seeded calories/macros are estimates. Reference dishes have unknown pricing and nutrition; missing values must not be interpreted as zero.
-- Local dish photos are illustrative, not restaurant-confirmed exact-dish photos. Confirm recipes, ingredients, allergens, cross-contact, and availability with restaurant staff.
-- NutriBot and NutriMatch provide general informational features only; neither diagnoses, prescribes, calculates clinical targets, nor guarantees that food is allergy-safe.
+**Important:** Pending dishes do not have confirmed prices, nutrition information, or availability. Local photos are illustrative and are not verified restaurant photography.
 
+---
+
+## 2. Testing Status
+
+<badge color="success">37 tests passed</badge>
+
+The integration and business-rule test suite was executed during the 2026-11-06 status review.
+
+**Test command:**
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Coverage includes:
+- NutriBot health-related response behavior.
+- NutriMatch filtering and scoring.
+- Flask API routes.
+- Tamil food catalog business rules.
+
+Test results represent the status review and should be revalidated after code changes.
+
+---
+
+## 3. Local Execution
+
+### Requirements
+- Python 3.10+
+- pip
+- Git (recommended)
+- VS Code (recommended)
+
+### Install Dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### Start Backend
+
+```bash
+python backend/app.py
+```
+
+Default API address:
+
+`http://127.0.0.1:5000`
+
+### Start Frontend
+
+Open a second terminal from the project root:
+
+```bash
+python -m http.server 8000
+```
+
+### Open Application
+
+`http://localhost:8000/frontend/index.html`
+
+### API Health Check
+
+`http://127.0.0.1:5000/api/test`
+
+The backend automatically initializes and seeds the default root-level `nutriorder.db` database.
+
+Set `NUTRIORDER_DB` to use another database file.
+
+See `README.md` for optional environment variables and Gemini/SMTP configuration.
+
+---
+
+## 4. Local Demo Accounts
+
+The following seed accounts are intended exclusively for local testing.
+
+| Role | Username | Email |
+|---|---|---|
+| Customer | `customer` | `customer@nutriorder.local` |
+| Owner | `bakery` | `owner@nutriorder.local` |
+
+**Demo password:** `1234`
+
+**Security warning:** Never use these credentials for real accounts or expose them in a public deployment.
+
+---
+
+## 5. Known Limitations
+
+### Security & Authentication
+- Authentication and authorization require production security review.
+- Session-secret defaults require hardening.
+- Email verification is not implemented.
+- Password reset email delivery requires SMTP configuration.
+- Production deployment settings require additional security measures.
+
+### Restaurant Operations
+- Production payment processing is not implemented.
+- Live food inventory is not implemented.
+- Full menu administration remains incomplete.
+- Owner/admin analytics are incomplete.
+- Subscription functionality is incomplete.
+- Production deployment and operations are not complete.
+
+### Food Data Accuracy
+- Seeded calorie and macronutrient values are estimates.
+- Pending traditional dishes have unknown prices and nutrition values.
+- Missing nutritional values must not be interpreted as zero.
+- Food images are representative, not confirmed exact-dish restaurant photos.
+- Recipes, ingredients, allergens, cross-contact, and availability require restaurant confirmation.
+
+### AI & Health Safety
+- NutriBot provides general informational responses.
+- NutriMatch provides preference-based recommendations.
+- Neither system diagnoses medical conditions or prescribes diets.
+- Neither system calculates clinical nutritional targets.
+- Allergy safety cannot be guaranteed.
+
+---
+
+## 6. Future Development Priorities
+
+| Priority | Planned Enhancement |
+|---|---|
+| High | Verify traditional Tamil food catalog data |
+| High | Improve NutriBot RAG retrieval and response evaluation |
+| High | Production authentication and security hardening |
+| Medium | Restaurant owner/admin dashboard |
+| Medium | Live inventory management |
+| Medium | Payment gateway integration |
+| Medium | Restaurant analytics and reporting |
+| Future | Advanced personalized recommendations |
+| Future | Production deployment |
+
+---
+
+## 7. Project Information
+
+| Category | Details |
+|---|---|
+| Project | NutriOrder AI |
+| Domain | Artificial Intelligence & Data Science |
+| Application | Restaurant Menu, Ordering & Food Discovery |
+| Frontend | HTML, CSS, JavaScript |
+| Backend | Python, Flask |
+| Database | SQLite |
+| AI | Google Gemini (Optional) |
+| RAG | Local Retrieval + Optional Chroma |
+| Development Stage | Functional Prototype |
+| Last Status Review | 2026-11-06 |
+
+---
+
+**Development Note:** NutriOrder AI is an evolving prototype. Features marked as implemented are available in the current reviewed codebase, while future enhancements and incomplete production capabilities are not represented as completed features.
