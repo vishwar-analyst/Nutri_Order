@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurant Owner Dashboard</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css?v=20261101-owner-orders">
+
+</head>
+
+<body>
+
+
+<header>
+
+<nav class="navbar">
+
+    <a class="restaurant-logo" href="../frontend/index.html" aria-label="NutriOrder AI home">
+        <span class="logo-mark" aria-hidden="true">N</span>
+        <span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="orders.html">
+            Orders
+        </a>
+
+            <a href="../frontend/menu.html">
+            View Menu
+        </a>
+            <button class="text-button" id="ownerLogout" type="button">Log out</button>
+
+    </div>
+
+</nav>
+
+</header>
+
+
+<main class="dashboard">
+
+    <h1>
+        Welcome, Restaurant Owner 👋
+    </h1>
+
+
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card">
+
+            <h2>
+                📦 Orders
+            </h2>
+
+            <p>
+                Manage customer orders.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <h2>
+                🍛 Foods
+            </h2>
+
+            <p>
+                Your Tamil restaurant menu.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="orders.html"
+        class="primary-btn">
+
+        View Orders
+
+    </a>
+
+</main>
+
+<script src="../js/dashboard-auth.js" defer></script>
+<script defer>
+    window.addEventListener("DOMContentLoaded", async () => {
+        const user = await requireRole(["owner"]);
+        if (user) document.querySelector(".dashboard h1").textContent = `Welcome, ${user.full_name || user.username} 👋`;
+        document.getElementById("ownerLogout").addEventListener("click", signOut);
+    });
+</script>
+
+</body>
+
+</html>

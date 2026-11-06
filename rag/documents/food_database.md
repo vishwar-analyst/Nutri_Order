@@ -1,0 +1,7 @@
+# Food Database — NutriMatch Retrieval Guide
+
+The live SQLite `foods` table is the source of truth for NutriOrder food IDs, names, price, category, ingredients, dietary type, meal type, nutrition fields, image, and any recorded availability. Do not invent a dish or substitute an unlisted recipe. The curated Tamil Nadu reference includes idli, plain dosa, ragi dosa, ven pongal, uthappam, idiyappam, appam, chapati, sambar rice, curd rice, lemon rice, vegetable meals, keerai rice, rasam rice, chicken biryani, fish curry with rice, egg dishes, sundal, sprouts salad, and fruit salad. Those general examples are not proof that the restaurant currently sells each dish.
+
+Canonical food metadata: `food_name`, `food_category`, `cuisine`, `dietary_type`, `meal_type`, `ingredients`, `allergens`, `serving_size`, and `nutrition_status`. The current restaurant seed menu contains Tamil Nadu dishes including Chettinad Chicken Biryani, Ghee Roast Dosa, Traditional Banana Leaf Meals, Parotta with Salna, Chicken 65, Ven Pongal, Vegetable Biryani, Idli with Sambar, Chettinad Chicken Curry, Madurai Fish Curry, Mutton Chukka, Sambar Rice, Curd Rice, South Indian Filter Coffee, Kuzhi Paniyaram, and Sweet Kesari. Use current database rows, not this list, to establish present availability.
+
+Seeded menu calorie and macro values are marked `estimated`, not verified measurements. Fibre, sodium, serving size, comprehensive allergens, and live stock are currently unrecorded unless a later restaurant update populates those columns. Never interpret null as zero or “free from.”

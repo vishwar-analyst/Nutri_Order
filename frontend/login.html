@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#123c2f">
+
+    <title>Sign In — NutriOrder AI</title>
+
+    <link rel="preconnect" href="https://images.pexels.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body class="auth-page" data-auth-page="login">
+
+    <main class="auth-shell">
+
+        <section class="auth-visual" aria-label="NutriOrder restaurant welcome">
+            <img class="auth-food-photo"
+                  src="https://images.pexels.com/photos/5410418/pexels-photo-5410418.jpeg?auto=compress&cs=tinysrgb&w=1800"
+                  alt="A traditional South Indian meal served on a banana leaf"
+                  fetchpriority="high">
+            <div class="auth-visual-shade"></div>
+            <a class="auth-brand auth-brand-light"
+                  href="index.html"><span class="auth-brand-mark">N</span><span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span></a>
+            <div class="auth-visual-copy">
+                <p class="auth-eyebrow"><span></span> TAMIL ROOTS. THOUGHTFUL CHOICES.</p>
+                <h1>Good food.<br><i>Better choices.</i></h1>
+                <p>Experience authentic Tamil Nadu flavours with intelligent food recommendations made around you.</p>
+                <div class="auth-quote"><span aria-hidden="true">✳</span><span>Tradition on every plate.<br><strong>Something lovely in every bite.</strong></span></div>
+            </div>
+            <div class="auth-photo-credit">A TASTE OF TAMIL NADU · SERVED WITH CARE</div>
+            <span class="auth-decoration auth-decoration-one"
+                  aria-hidden="true">✳</span><span class="auth-decoration auth-decoration-two"
+                  aria-hidden="true">✦</span>
+        </section>
+
+        <section class="auth-panel">
+            <a class="auth-brand auth-brand-mobile"
+                  href="index.html"><span class="auth-brand-mark">N</span><span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span></a>
+            <div class="auth-form-wrap">
+                <div class="auth-form-heading">
+                    <p class="auth-form-kicker">YOUR TABLE IS WAITING</p>
+                    <h2>Welcome back!</h2>
+                    <p>Sign in to continue your food journey.</p>
+                </div>
+                <form id="loginForm" class="auth-form" novalidate>
+                    <div class="auth-field">
+                        <label for="identifier">Email or username</label>
+                        <input id="identifier" name="identifier" type="text"
+                            autocomplete="username" placeholder="you@example.com or customer"
+                            maxlength="254" required>
+                    </div>
+                    <div class="auth-field">
+                        <div class="auth-label-row">
+                            <label for="password">Password</label>
+                            <a href="forgot-password.html">Forgot password?</a>
+                        </div>
+                        <div class="password-control">
+                            <input id="password" name="password" type="password"
+                                autocomplete="current-password" placeholder="Enter your password"
+                                required>
+                            <button class="password-toggle"
+                                type="button" data-password-toggle="password"
+                                aria-label="Show password" aria-pressed="false">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <label class="auth-check">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="auth-checkmark"></span>
+                        <span>Remember me on this device</span>
+                    </label>
+                    <div id="authMessage" class="auth-message"
+                        role="status" aria-live="polite"></div>
+                    <button class="auth-submit" id="loginButton" type="submit">
+                        <span>Sign in</span>
+                        <span aria-hidden="true">↗</span>
+                    </button>
+                </form>
+                <div class="auth-divider"><span>SECURE SIGN IN</span></div>
+                <p class="auth-provider-note">Google sign-in is not enabled for this project yet.</p>
+                <p class="auth-switch">Don't have an account? <a href="register.html">Create one</a></p>
+                <p class="auth-back"><a href="index.html">← Back to NutriOrder AI</a></p>
+            </div>
+            <p class="auth-legal">By continuing, you acknowledge NutriOrder AI’s Terms and Privacy Policy.</p>
+        </section>
+
+    </main>
+
+    <script src="/js/auth.js" defer></script>
+
+</body>
+
+</html>

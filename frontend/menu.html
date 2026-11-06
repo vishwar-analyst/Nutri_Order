@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Browse Tamil Nadu favourites, from crispy dosa and idli to Chettinad biryani and traditional meals.">
+
+    <title>Our Menu — NutriOrder AI Tamil Kitchen</title>
+
+    <link rel="preconnect"
+          href="https://images.unsplash.com">
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+<body class="restaurant-menu-page">
+
+<header class="restaurant-header is-scrolled">
+
+    <nav class="restaurant-nav" aria-label="Main navigation">
+
+        <a class="restaurant-logo"
+            href="index.html"><span class="logo-mark" aria-hidden="true">N</span><span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span></a>
+
+        <button class="nav-toggle"
+            id="menuNavToggle" type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls="menuNav"><span></span><span></span><span></span></button>
+
+        <div class="restaurant-links"
+            id="menuNav"><a href="index.html">Home</a><a class="active" aria-current="page"
+            href="menu.html">Menu</a><a href="recommendation.html">NutriMatch</a><a
+            href="chatbot.html">NutriBot</a><a href="orders.html">My Orders</a><a
+            class="nav-login" href="login.html">Sign in</a><a class="nav-cart"
+            href="cart.html">Cart ↗</a></div>
+
+    </nav>
+
+</header>
+
+
+<main class="restaurant-menu-main">
+
+    <section class="menu-collection-intro" aria-label="Traditional Tamil Nadu collections">
+        <p class="eyebrow-light">FROM OUR TAMIL KITCHEN</p>
+        <h2>Explore by <i>tradition.</i></h2>
+        <p>Browse breakfast, lunch, snacks, drinks and regional favourites. Dish references without confirmed restaurant pricing are clearly marked and cannot be added to cart.</p>
+        <div class="menu-collection-links">
+            <button type="button" data-category="Traditional Breakfast">Breakfast</button>
+            <button type="button" data-category="Traditional Lunch">Lunch</button>
+            <button type="button" data-category="Traditional Snacks">Snacks</button>
+            <button type="button" data-category="Traditional Drinks">Drinks</button>
+            <button type="button" data-category="Non-Vegetarian Traditional">Non-vegetarian</button>
+            <button type="button" data-category="all">All dishes</button>
+        </div>
+    </section>
+
+    <section class="menu-hero" aria-labelledby="menuTitle">
+
+        <p class="eyebrow-light">OUR KITCHEN, ON YOUR TABLE</p>
+
+        <h1 id="menuTitle">A menu with <i>Tamil roots.</i></h1>
+
+        <p>Everyday favourites, regional classics and something delicious for your next meal.</p>
+
+        <div class="menu-hero-note"><span aria-hidden="true">✳</span> Nutrition values are estimates unless marked verified.</div>
+
+    </section>
+
+
+    <section class="menu-content" aria-label="Browse restaurant menu">
+
+        <div class="menu-toolbar">
+
+            <label class="menu-search"><span aria-hidden="true">⌕</span><span class="visually-hidden">Search dishes</span><input id="foodSearch"
+                type="search" placeholder="Search dishes or ingredients…" autocomplete="off"></label>
+
+            <label class="menu-sort-label" for="foodSort">Sort by</label>
+
+            <select id="foodSort" class="menu-sort"><option value="popular">Most popular</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select>
+
+            <label class="menu-sort-label" for="foodBudget">Budget</label>
+            <select id="foodBudget" class="menu-sort"><option value="all">Any budget</option><option value="under-50">Under ₹50</option><option value="50-100">₹50–₹100</option><option value="100-200">₹100–₹200</option><option value="200-300">₹200–₹300</option><option value="above-300">Above ₹300</option></select>
+
+        </div>
+
+
+        <div class="menu-filters" id="menuFilters" aria-label="Filter by category">
+
+            <button type="button" class="menu-filter active" data-category="all" aria-pressed="true">All dishes</button>
+
+            <button type="button" class="menu-filter" data-category="Breakfast" aria-pressed="false">Breakfast</button>
+
+            <button type="button" class="menu-filter" data-category="Lunch" aria-pressed="false">Lunch</button>
+
+            <button type="button" class="menu-filter" data-category="Dinner" aria-pressed="false">Dinner</button>
+
+            <button type="button" class="menu-filter" data-category="Biryani" aria-pressed="false">Biryani</button>
+
+            <button type="button" class="menu-filter" data-category="Traditional Meals" aria-pressed="false">Traditional meals</button>
+
+            <button type="button" class="menu-filter" data-category="Snacks" aria-pressed="false">Snacks</button>
+
+            <button type="button" class="menu-filter" data-category="Beverages" aria-pressed="false">Beverages</button>
+
+            <button type="button" class="menu-filter" data-category="Desserts" aria-pressed="false">Desserts</button>
+
+            <button type="button" class="menu-filter" data-category="Traditional Breakfast" aria-pressed="false">Tamil breakfast</button>
+
+            <button type="button" class="menu-filter" data-category="Traditional Lunch" aria-pressed="false">Tamil lunch</button>
+
+            <button type="button" class="menu-filter" data-category="Traditional Snacks" aria-pressed="false">Traditional snacks</button>
+
+            <button type="button" class="menu-filter" data-category="Traditional Drinks" aria-pressed="false">Traditional drinks</button>
+
+            <button type="button" class="menu-filter" data-category="Non-Vegetarian Traditional" aria-pressed="false">Tamil non-veg</button>
+
+            <span class="filter-divider" aria-hidden="true"></span>
+
+            <button type="button" class="menu-filter dietary-filter" data-diet="vegetarian" aria-pressed="false">● Veg</button>
+
+            <button type="button" class="menu-filter dietary-filter" data-diet="non-vegetarian" aria-pressed="false">● Non-veg</button>
+
+            <button type="button" class="menu-filter dietary-filter" data-diet="egg" aria-pressed="false">● Egg</button>
+
+        </div>
+
+
+        <div class="menu-result-line"><span id="menuResultCount">Loading today's menu…</span><a href="chatbot.html">Need a hand choosing? Ask NutriBot ↗</a></div>
+
+        <div id="menuContainer"
+            class="restaurant-food-grid"
+            aria-live="polite"
+            aria-busy="true"></div>
+
+    </section>
+
+</main>
+
+<dialog id="menuFoodDialog" class="nm-detail-dialog" aria-labelledby="menuDetailName">
+    <form method="dialog" class="nm-dialog-close-wrap"><button class="nm-dialog-close" aria-label="Close food details">×</button></form>
+    <div id="menuFoodDetail"></div>
+</dialog>
+
+
+<footer class="restaurant-footer menu-footer"><div class="footer-bottom"><span>© 2026 NutriOrder AI · Made with care in Tamil Nadu</span><span>Nutrition information is estimated unless explicitly marked verified.</span></div></footer>
+
+<script src="/js/menu.js?v=20261106-local-food-images" defer></script>
+
+</body>
+
+</html>

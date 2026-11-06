@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bakery Orders</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css?v=20261101-owner-orders">
+
+</head>
+
+<body>
+
+
+<header>
+
+<nav class="navbar">
+
+    <a class="restaurant-logo" href="../frontend/index.html" aria-label="NutriOrder AI home">
+        <span class="logo-mark" aria-hidden="true">N</span>
+        <span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../frontend/menu.html">
+            Menu
+        </a>
+
+    </div>
+
+</nav>
+
+</header>
+
+
+<main class="dashboard">
+
+    <h1>
+        📦 Customer Orders
+    </h1>
+
+    <br>
+
+    <div id="ordersContainer"></div>
+
+</main>
+
+
+<script src="../js/bakery.js?v=20261101-customer-details"></script>
+<script src="../js/dashboard-auth.js" defer></script>
+<script defer>
+    window.addEventListener("DOMContentLoaded", () => requireRole(["owner"]));
+</script>
+
+</body>
+
+</html>

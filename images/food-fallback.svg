@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="title desc">
+  <title id="title">Tamil Nadu meal image placeholder</title>
+  <desc id="desc">Illustrated banana leaf with a traditional meal served in a brass plate</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5edd9"/><stop offset="1" stop-color="#e4ead4"/></linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4a8d52"/><stop offset="1" stop-color="#205b35"/></linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <ellipse cx="400" cy="270" rx="290" ry="155" fill="#b58a48" opacity=".28"/>
+  <ellipse cx="400" cy="255" rx="268" ry="137" fill="url(#leaf)"/>
+  <path d="M170 300c150-110 307-139 465-132-106 78-260 123-465 132Z" fill="#75a966" opacity=".8"/>
+  <path d="M190 305c157-57 300-98 438-126" fill="none" stroke="#d7df9d" stroke-width="5" opacity=".8"/>
+  <circle cx="340" cy="235" r="48" fill="#f4d378"/><circle cx="458" cy="275" r="34" fill="#d96b3d"/><circle cx="520" cy="222" r="26" fill="#f2e7c7"/>
+  <text x="400" y="465" text-anchor="middle" fill="#345538" font-family="Georgia,serif" font-size="25">A taste of Tamil Nadu</text>
+</svg>

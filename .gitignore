@@ -1,0 +1,27 @@
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local databases and transient SQLite files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Local AI indexes and uploads
+chroma_db/
+vector_store/
+rag/chroma_db/
+uploads/
+
+# Editor/OS artifacts
+.vscode/
+.DS_Store
+Thumbs.db

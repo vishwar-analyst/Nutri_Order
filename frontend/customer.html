@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your NutriOrder customer dashboard for menu discovery, smart recommendations, and order tracking.">
+    <title>My Dashboard - NutriOrder AI</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar" aria-label="Main navigation">
+            <a class="restaurant-logo" href="index.html" aria-label="NutriOrder AI home">
+                <span class="logo-mark" aria-hidden="true">N</span>
+                <span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span>
+            </a>
+            <div class="nav-links">
+                <a href="customer.html" aria-current="page">Dashboard</a>
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="recommendation.html">NutriMatch</a>
+                <a href="chatbot.html">NutriBot</a>
+                <a href="orders.html">My Orders</a>
+                <a class="nav-cart" href="cart.html">Cart ↗</a>
+                <button class="text-button" id="logoutButton" type="button">Log out</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="customer-dashboard">
+        <section class="customer-welcome">
+            <div>
+                <p class="small-title">YOUR NUTRIORDER SPACE</p>
+                <h1>Welcome back, <span id="customerName">food lover</span> 👋</h1>
+                <p>Find something delicious, make a smarter choice, and keep track of every order.</p>
+            </div>
+            <a class="primary-btn" href="menu.html">Explore the menu <span aria-hidden="true">→</span></a>
+        </section>
+
+        <section class="customer-shortcuts" aria-label="Quick actions">
+            <a class="customer-shortcut" href="menu.html">
+                <span class="shortcut-icon" aria-hidden="true">🍽️</span>
+                <span><strong>Browse menu</strong><small>Explore Tamil kitchen favourites</small></span>
+                <span class="shortcut-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="customer-shortcut" href="recommendation.html">
+                <span class="shortcut-icon" aria-hidden="true">🌿</span>
+                <span><strong>Find a smart pick</strong><small>Discover menu choices by calories</small></span>
+                <span class="shortcut-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="customer-shortcut" href="chatbot.html">
+                <span class="shortcut-icon" aria-hidden="true">💬</span>
+                <span><strong>Ask NutriBot</strong><small>Get answers grounded in available data</small></span>
+                <span class="shortcut-arrow" aria-hidden="true">→</span>
+            </a>
+        </section>
+
+        <section class="customer-orders-section" aria-labelledby="recentOrdersTitle">
+            <div class="section-heading">
+                <div>
+                    <p class="small-title">ORDER TRACKER</p>
+                    <h2 id="recentOrdersTitle">Recent orders</h2>
+                </div>
+                <a href="orders.html">View order history →</a>
+            </div>
+            <div id="recentOrders" class="recent-orders" aria-live="polite">
+                <p class="dashboard-loading">Loading your recent orders…</p>
+            </div>
+        </section>
+
+        <aside class="customer-tip">
+            <span aria-hidden="true">💡</span>
+            <p><strong>A quick nutrition note</strong><br>Food details shown in the menu come from available records. Ask the restaurant directly about ingredients and allergens before ordering.</p>
+            <a href="chatbot.html">Chat with NutriBot</a>
+        </aside>
+    </main>
+
+    <script src="/js/customer.js" defer></script>
+</body>
+</html>

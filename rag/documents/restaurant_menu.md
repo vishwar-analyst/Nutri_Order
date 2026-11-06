@@ -1,0 +1,7 @@
+# Current Restaurant Menu Data Policy
+
+The SQLite `foods` table is authoritative for current NutriOrder item identity, price, category, description, image, ingredients, dietary type, meal type, and recorded nutrition. APIs must retrieve the live database; static knowledge documents are supporting context and must not add menu availability or price. Availability is not currently tracked reliably. A null availability status means stock is unknown, not guaranteed available; interface language should say the item is listed in the menu but live stock is not tracked. If an allergy was selected, include an item in ranked recommendations only when `allergens_verified=1` and no selected allergen conflicts; otherwise put it in verification or exclude it. Render an image URL only when `image_verified=1`; otherwise use the local food fallback, not an unverified stock photo.
+
+The platform has one demo restaurant, NutriOrder AI. Do not claim other restaurant names. Images are attached to current seeded menu rows; use the provided image URL or the local food fallback. The `cuisine` field can be populated for known project seed dishes; other cuisine categories should remain unknown until verified.
+
+Menu changes should refresh RAG index when semantic search is configured. Deterministic recommendations must always use current SQLite rows and must apply dietary/allergy restrictions before scoring.

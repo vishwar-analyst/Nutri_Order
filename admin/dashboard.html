@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Admin — NutriOrder AI</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header><nav class="navbar"><a class="logo" href="../frontend/index.html">NutriOrder <span>AI</span></a><div class="nav-links"><a href="../frontend/index.html">Restaurant site</a><button class="text-button" id="adminLogout" type="button">Log out</button></div></nav></header>
+    <main class="dashboard">
+        <p class="small-title">PLATFORM ACCESS</p>
+        <h1>Administrator dashboard</h1>
+        <section class="dashboard-cards" aria-label="Administrator overview">
+            <article class="dashboard-card"><h2>Account verified</h2><p id="adminWelcome">Checking your administrator session…</p></article>
+            <article class="dashboard-card"><h2>Platform tools</h2><p>Administrative analytics and management modules will be delivered in the dashboard phase.</p></article>
+        </section>
+    </main>
+    <script src="../js/dashboard-auth.js" defer></script>
+    <script defer>
+        window.addEventListener("DOMContentLoaded", async () => {
+            const user = await requireRole(["admin"]);
+            if (user) document.getElementById("adminWelcome").textContent = `Signed in as ${user.full_name || user.email}.`;
+            document.getElementById("adminLogout").addEventListener("click", signOut);
+        });
+    </script>
+</body>
+</html>

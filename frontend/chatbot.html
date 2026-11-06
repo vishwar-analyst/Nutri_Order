@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Ask NutriBot about NutriOrder menu items and general nutrition basics.">
+	<title>NutriBot - NutriOrder AI</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<nav class="navbar" aria-label="Main navigation">
+			<a class="restaurant-logo" href="index.html" aria-label="NutriOrder AI home">
+				<span class="logo-mark" aria-hidden="true">N</span>
+				<span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span>
+			</a>
+			<div class="nav-links">
+				<a href="index.html">Home</a>
+				<a href="menu.html">Menu</a>
+				<a href="recommendation.html">NutriMatch</a>
+				<a href="chatbot.html" aria-current="page">NutriBot</a>
+				<a href="orders.html">My Orders</a>
+				<a class="nav-login" href="login.html">Sign in</a>
+				<a class="nav-cart" href="cart.html">Cart ↗</a>
+			</div>
+		</nav>
+	</header>
+
+	<main class="chat-page">
+		<section class="chat-card" aria-labelledby="chatTitle">
+			<div class="chat-heading">
+				<div class="chat-avatar" aria-hidden="true">🥗</div>
+				<div>
+					<p class="small-title">NUTRIORDER AI ASSISTANT</p>
+					<h1 id="chatTitle">Ask NutriBot</h1>
+					<p>Explore menu options with evidence-led, portion-aware nutrition context.</p>
+				</div>
+				<span class="chat-status"><span aria-hidden="true"></span> Menu-aware</span>
+			</div>
+
+			<div class="chat-notice" role="note">
+				Menu records may be estimates or pending restaurant confirmation. Missing ingredients, allergens, prices, photos and stock are not inferred. Confirm allergy and preparation details with staff. NutriBot is not a medical advisor.
+			</div>
+
+			<div class="chat-suggestions" aria-label="Suggested questions">
+				<button type="button" data-prompt="Is ragi dosa suitable for high blood sugar?">Blood sugar &amp; ragi dosa</button>
+				<button type="button" data-prompt="Is curd rice suitable for high blood pressure?">Sodium &amp; curd rice</button>
+				<button type="button" data-prompt="Compare idli and dosa for diabetes considerations">Compare menu foods</button>
+			</div>
+
+			<ol id="chatMessages" class="chat-messages" aria-live="polite" aria-relevant="additions text">
+				<li class="chat-message assistant-message">
+					<div class="message-bubble">Welcome to NutriBot. Ask about a menu item and a health consideration to see a structured, evidence-led analysis. Missing measurements stay clearly marked as unavailable.</div>
+				</li>
+			</ol>
+
+			<form id="chatForm" class="chat-form">
+				<label class="visually-hidden" for="chatInput">Your question</label>
+				<input id="chatInput" name="message" type="text" maxlength="500" autocomplete="off" placeholder="Ask about a food or nutrition…" required>
+				<button id="sendButton" class="primary-btn" type="submit">Send</button>
+			</form>
+			<p id="chatStatus" class="chat-feedback" role="status" aria-live="polite"></p>
+			<p class="chat-footnote">NutriBot uses available NutriOrder data. Never rely on it to determine whether a food is safe for an allergy.</p>
+		</section>
+	</main>
+	<script src="/js/chatbot.js" defer></script>
+</body>
+</html>

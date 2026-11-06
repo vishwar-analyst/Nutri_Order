@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personalized NutriMatch food discovery from the current NutriOrder restaurant menu.">
+    <title>NutriMatch AI — NutriOrder</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <nav class="navbar" aria-label="Main navigation">
+        <a class="restaurant-logo" href="index.html" aria-label="NutriOrder AI home">
+            <span class="logo-mark" aria-hidden="true">N</span>
+            <span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="menu.html">Menu</a>
+            <a href="recommendation.html" aria-current="page">NutriMatch</a>
+            <a href="chatbot.html">NutriBot</a>
+            <a href="orders.html">My Orders</a>
+            <a class="nav-login" href="login.html">Sign in</a>
+            <a class="nav-cart" href="cart.html">Cart ↗</a>
+        </div>
+    </nav>
+</header>
+
+<main class="nutrimatch-page">
+    <section class="nutrimatch-hero" aria-labelledby="nutriMatchTitle">
+        <div class="nutrimatch-hero-copy">
+            <p class="nm-eyebrow">A THOUGHTFUL WAY TO CHOOSE</p>
+            <h1 id="nutriMatchTitle">Your table,<br><em>your kind of good.</em></h1>
+            <p>Tell us what matters today. NutriMatch compares real menu listings with your preferences and explains what it knows—and what still needs checking.</p>
+            <div class="nm-hero-actions">
+                <a class="nm-primary-link" href="#preferenceWizard">Build my matches <span aria-hidden="true">↓</span></a>
+                <span>10 quick steps · optional health details · no profile saved</span>
+            </div>
+        </div>
+        <div class="nutrimatch-hero-art" role="img" aria-label="South Indian dishes served on a banana leaf">
+            <div class="nm-art-caption"><span>GOOD FOOD,</span><strong>made personal.</strong></div>
+        </div>
+    </section>
+
+    <aside class="nm-privacy-note" aria-label="Privacy and nutrition note">
+        <span class="nm-note-icon" aria-hidden="true">✳</span>
+        <p><strong>Your preferences stay in this browsing session.</strong> NutriMatch does not save health or allergy selections. Menu nutrition may be estimated; sodium, fibre, stock status, allergens, and cross-contact are shown only when recorded. This is not medical advice.</p>
+    </aside>
+
+    <section id="preferenceWizard" class="nm-wizard" aria-labelledby="wizardTitle">
+        <div class="nm-wizard-heading">
+            <div>
+                <p class="nm-eyebrow">PERSONALISE YOUR DISCOVERY</p>
+                <h2 id="wizardTitle">Let’s find your thoughtful picks</h2>
+                <p>Skip anything you’d rather not share. Your basic recommendations work without personal measurements.</p>
+            </div>
+            <span class="nm-wizard-badge" aria-hidden="true">✦</span>
+        </div>
+        <div class="nm-progress-row">
+            <span id="stepCount">Step 1 of 10</span>
+            <span id="stepName">Food goal</span>
+        </div>
+        <div class="nm-progress-track" role="progressbar" aria-label="Questionnaire progress" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1">
+            <span id="progressFill"></span>
+        </div>
+        <form id="nutriMatchForm" novalidate>
+            <div id="stepContent" class="nm-step-content"></div>
+            <div class="nm-wizard-controls">
+                <button id="previousStep" class="nm-secondary-button" type="button" disabled>← Back</button>
+                <button id="skipStep" class="nm-text-button" type="button">Skip this step</button>
+                <button id="nextStep" class="nm-next-button" type="button">Continue <span aria-hidden="true">→</span></button>
+            </div>
+        </form>
+    </section>
+
+    <section id="recommendationResults" class="nm-results" aria-labelledby="resultsTitle" hidden>
+        <div class="nm-results-heading">
+            <div>
+                <p class="nm-eyebrow">YOUR NUTRIMATCH EDIT</p>
+                <h2 id="resultsTitle">Made for your moment</h2>
+                <p id="resultsSummary">Ranked from current menu listings using transparent preference weights.</p>
+            </div>
+            <button id="editPreferences" class="nm-secondary-button" type="button">Edit preferences</button>
+        </div>
+        <div id="matchingMethod" class="nm-scoring-note"></div>
+        <div id="healthNotices" class="nm-health-notices"></div>
+        <section id="ragGuidance" class="nm-rag-guidance" aria-label="Retrieved food guidance" hidden></section>
+
+        <section class="nm-result-group" aria-labelledby="bestMatchesTitle">
+            <div class="nm-group-heading"><span>01</span><div><h3 id="bestMatchesTitle">Best matches</h3><p>Highest preference scores after safety and menu filters.</p></div></div>
+            <div id="bestMatches" class="nm-food-grid"></div>
+        </section>
+        <section class="nm-result-group" aria-labelledby="alternativeChoicesTitle">
+            <div class="nm-group-heading"><span>02</span><div><h3 id="alternativeChoicesTitle">Alternative choices</h3><p>Other eligible menu items, ranked by the same scoring method.</p></div></div>
+            <div id="alternativeChoices" class="nm-food-grid"></div>
+        </section>
+        <section id="verificationSection" class="nm-result-group nm-verification-group" aria-labelledby="verificationTitle" hidden>
+            <div class="nm-group-heading"><span>!</span><div><h3 id="verificationTitle">Foods requiring ingredient verification</h3><p>These are not recommendations. Confirm dietary and cross-contact details with restaurant staff.</p></div></div>
+            <div id="verificationFoods" class="nm-food-grid"></div>
+        </section>
+
+        <section class="nm-chat-panel" aria-labelledby="nutrimatchChatTitle">
+            <div class="nm-chat-heading"><span aria-hidden="true">✳</span><div><h3 id="nutrimatchChatTitle">Ask NutriMatch</h3><p>Chat about these menu matches. Your selected preferences are used only for this session.</p></div></div>
+            <ol id="nmChatMessages" class="nm-chat-messages" aria-live="polite">
+                <li class="nm-chat-assistant">Try “Suggest a high-protein Tamil breakfast” or ask what is known about a dish.</li>
+            </ol>
+            <form id="nmChatForm" class="nm-chat-form">
+                <label class="visually-hidden" for="nmChatInput">Ask NutriMatch about your menu matches</label>
+                <input id="nmChatInput" maxlength="500" placeholder="Ask about these menu matches…" autocomplete="off" required>
+                <button class="nm-next-button" type="submit">Ask</button>
+            </form>
+            <p id="nmChatStatus" class="nm-chat-status" role="status" aria-live="polite"></p>
+        </section>
+        <p id="resultsDisclaimer" class="nm-disclaimer"></p>
+    </section>
+</main>
+
+<dialog id="foodDetailDialog" class="nm-detail-dialog" aria-labelledby="detailFoodName">
+    <form method="dialog" class="nm-dialog-close-wrap"><button class="nm-dialog-close" aria-label="Close food details">×</button></form>
+    <div id="foodDetailContent"></div>
+</dialog>
+
+<script src="/js/recommendation.js?v=20261106-local-food-images"></script>
+</body>
+</html>

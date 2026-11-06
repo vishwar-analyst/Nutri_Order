@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Order Confirmed - NutriOrder AI</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <nav class="navbar">
+
+        <a class="restaurant-logo" href="index.html" aria-label="NutriOrder AI home">
+            <span class="logo-mark" aria-hidden="true">N</span>
+            <span>NutriOrder <em>AI</em><small>TAMIL KITCHEN</small></span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="menu.html">
+                Menu
+            </a>
+
+            <a href="recommendation.html">NutriMatch</a>
+
+            <a href="chatbot.html">NutriBot</a>
+
+            <a href="orders.html" aria-current="page">
+                My Orders
+            </a>
+
+            <a class="nav-cart" href="cart.html">Cart ↗</a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main class="success-page">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>
+            Order Placed!
+        </h1>
+
+        <p>
+            Your order has been successfully sent
+            to the restaurant.
+        </p>
+
+
+        <div class="order-id-box">
+
+            <p>
+                YOUR ORDER ID
+            </p>
+
+            <h2 id="orderId">
+                BK000000
+            </h2>
+
+        </div>
+
+
+        <p class="instruction">
+
+            Please remember your Order ID and
+            show it at the restaurant when collecting
+            your food.
+
+        </p>
+
+
+        <div class="success-buttons">
+
+            <a
+                href="orders.html"
+                class="primary-btn"
+            >
+                View My Orders
+            </a>
+
+            <a
+                href="menu.html"
+                class="secondary-btn"
+            >
+                Order More
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script>
+
+    const order =
+        JSON.parse(
+            localStorage.getItem("latestOrder")
+        );
+
+
+    if (order) {
+
+        document.getElementById("orderId")
+            .textContent = order.orderId;
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

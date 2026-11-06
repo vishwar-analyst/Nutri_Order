@@ -1,0 +1,9 @@
+# Core Flask API and local frontend CORS support.
+Flask>=3.0,<4.0
+Flask-Cors>=4.0,<7.0
+python-dotenv>=1.0,<2
+
+# Optional Gemini/Chroma semantic retrieval and grounded answer generation.
+# Basic menu, keyword retrieval, and deterministic NutriMatch work without these.
+langchain-chroma>=0.2,<2
+langchain-google-genai>=2,<4

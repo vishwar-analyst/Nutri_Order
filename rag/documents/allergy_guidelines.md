@@ -1,0 +1,5 @@
+# Allergy and Cross-Contact Safety
+
+Allergies are strict exclusions, never ranking weights. Exclude an item when known ingredient/allergen data conflicts with a selected allergy. If no conflict is found but the restaurant's complete ingredients or cross-contact procedures are unknown, do not call the item safe: put it in `Foods Requiring Ingredient Verification`, not in recommended choices. A food can enter the ranked set for an allergy-selected profile only if its allergen declaration is explicitly marked restaurant-verified and no selected allergen is listed. Unknown is not allergen-free.
+
+Check peanuts, tree nuts, dairy, egg, fish, shellfish, soy, gluten/wheat, sesame, and customer-specified other allergens across names, ingredients, declared allergens, sauces, toppings, shared oil, and preparation surfaces. The current schema supports nullable ingredient/allergen fields but does not yet contain a complete verified allergen program. Ask customers to confirm directly with restaurant staff. If the restaurant cannot confirm safety, do not recommend ordering that food. For possible severe allergic reaction, encourage immediate emergency care.
