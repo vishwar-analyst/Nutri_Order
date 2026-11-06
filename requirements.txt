@@ -1,9 +1,30 @@
-# Core Flask API and local frontend CORS support.
+# ==========================================
+# NutriOrder AI - Python Dependencies
+# ==========================================
+
+# Core Flask API and local frontend CORS support
 Flask>=3.0,<4.0
 Flask-Cors>=4.0,<7.0
-python-dotenv>=1.0,<2
+python-dotenv>=1.0,<2.0
 
-# Optional Gemini/Chroma semantic retrieval and grounded answer generation.
-# Basic menu, keyword retrieval, and deterministic NutriMatch work without these.
-langchain-chroma>=0.2,<2
-langchain-google-genai>=2,<4
+
+# ==========================================
+# Optional AI / RAG Dependencies
+# ==========================================
+
+# Google Gemini integration and Chroma vector database
+# Required only for optional semantic retrieval and AI generation
+langchain-chroma>=0.2,<2.0
+langchain-google-genai>=2.0,<4.0
+
+
+# ==========================================
+# Notes
+# ==========================================
+
+# Core menu, SQLite database, keyword retrieval,
+# and deterministic NutriMatch work without optional AI packages.
+#
+# Gemini requires GEMINI_API_KEY in the backend environment.
+# Chroma indexing is optional.
+# Keep API keys inside .env, never in frontend code.
