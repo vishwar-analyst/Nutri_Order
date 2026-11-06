@@ -1,98 +1,310 @@
 NUTRIORDER AI — PROJECT OVERVIEW
 ================================
 
-WHAT THIS PROJECT IS
+PROJECT INTRODUCTION
 --------------------
-NutriOrder AI is a local Tamil Nadu restaurant ordering and food-discovery web application. It combines a restaurant menu and cart/order flow with customer accounts, NutriBot (a retrieval-augmented food assistant), and NutriMatch (a preference-based recommendation feature).
+NutriOrder AI is a Tamil Nadu-focused restaurant menu, ordering, and food-discovery web application. It combines restaurant menu browsing, customer accounts, cart and order management, NutriBot (a Retrieval-Augmented Generation food assistant), and NutriMatch (a preference-based food recommendation engine).
 
-It is an evolving development/demo project, not a production-ready medical or restaurant commerce service. Nutrition values on seeded sample dishes are marked estimates. Many newly added Tamil dish records are reference-only until the restaurant confirms the actual recipe, price, image, stock, allergens, and nutrition.
+The application is built using HTML, CSS, JavaScript, Python, Flask, and SQLite, with optional Google Gemini and Chroma integrations.
 
-TECHNOLOGY USED
----------------
+It is an evolving development and demonstration prototype, not a production-ready medical or restaurant commerce service.
+
+Nutrition values on seeded sample dishes may be estimates. Newly added Tamil traditional food records are reference-only until restaurants confirm their recipes, prices, images, availability, allergens, and nutritional information.
+
+TECHNOLOGY STACK
+----------------
+
 Frontend:
-- HTML pages in frontend/, admin/, and bakery/.
-- CSS in css/style.css.
-- Browser JavaScript in js/.
-- No frontend framework or package build step is currently required.
-- The frontend can be served with VS Code Live Server or Python's static HTTP server.
+- HTML5 pages in frontend/, admin/, and bakery/.
+- CSS3 styles in css/style.css.
+- Browser-based JavaScript in js/.
+- No frontend framework or package build step is required.
+- Can be served using VS Code Live Server or Python's static HTTP server.
 
 Backend:
-- Python and Flask in backend/app.py.
-- Flask-CORS for browser requests to the API.
+- Python 3.10+.
+- Flask REST API in backend/app.py.
+- Flask-CORS for local frontend-to-backend communication.
 - SQLite database, normally nutriorder.db at the project root.
-- Werkzeug password hashing and Flask sessions for the prototype authentication flow.
+- Werkzeug password hashing.
+- Flask sessions and HTTP-only/SameSite cookies for prototype authentication.
 
-AI and retrieval:
-- RAG code is in rag/chatbot.py and indexing code in rag/ingest.py.
-- Curated Markdown and text sources are read from rag/documents/.
-- Local keyword retrieval works without external AI credentials.
-- Optional semantic search uses LangChain, ChromaDB, and Gemini embeddings; optional answer generation uses Gemini when configured.
-- Gemini requires GEMINI_API_KEY on the server. No key is required for basic menu browsing, deterministic NutriMatch scoring, or local retrieval.
+AI and Retrieval:
+- RAG implementation in rag/chatbot.py.
+- Optional indexing implementation in rag/ingest.py.
+- Curated Markdown and TXT knowledge documents in rag/documents/.
+- Local keyword retrieval without external AI credentials.
+- Optional semantic retrieval using LangChain and ChromaDB.
+- Optional Google Gemini integration for grounded answer generation and embeddings.
+- Gemini requires GEMINI_API_KEY on the backend.
+- Basic menu browsing, SQLite operations, keyword retrieval, and deterministic NutriMatch scoring work without Gemini.
 
-PROJECT FOLDERS
----------------
-backend/       Flask API, SQLite setup, seed data, authentication, and recommendation service.
-frontend/      Customer-facing home, menu, cart, account, chatbot, and recommendation pages.
-admin/         Admin dashboard page.
-bakery/        Bakery/owner dashboard and order pages.
-css/           Shared site styles, including NutriBot/NutriMatch/menu layouts.
-js/            Browser logic for accounts, menu, cart, chatbot, recommendations, and dashboards.
-rag/           Retrieval, health response formatting, index builder, and documents/ knowledge base.
-docs/          Architecture and project design notes.
+PROJECT STRUCTURE
+-----------------
+backend/       Flask API, database initialization, seed data,
+               authentication, orders, and recommendation services.
+
+frontend/      Customer-facing home, menu, cart, accounts,
+               chatbot, and recommendation pages.
+
+admin/         Admin dashboard pages.
+
+bakery/        Restaurant owner dashboard and order pages.
+
+css/           Shared styles for menu, NutriBot, NutriMatch,
+               authentication, and other interfaces.
+
+js/            Browser-side account, menu, cart, chatbot,
+               recommendation, and dashboard functionality.
+
+rag/           RAG retrieval, health response formatting,
+               index builder, and knowledge documents.
+
+docs/          Architecture and project design documentation.
+
 tests/         Automated integration and business-rule tests.
-images/        Local image assets and food fallback image.
+
+images/        Local representative food images and fallback illustrations.
+
+requirements.txt
+               Core Flask dependencies and optional AI/RAG dependencies.
+
+README.md      Installation, configuration, features, and usage instructions.
+
+PROJECT_STATUS.md
+               Implementation status, testing results, limitations,
+               demo accounts, and future development priorities.
 
 MAIN FEATURES
 -------------
-1. Restaurant menu
-   - Loads food rows from SQLite through GET /api/foods.
-   - Supports text search, categories, vegetarian/non-vegetarian/egg filters, budget filters, sorting, food details, and cart addition.
-   - Uses database price and nutrition fields; null values are displayed as unavailable rather than replaced with guesses.
-   - Catalog entries without confirmed prices are informational only and cannot be ordered.
-   - The 16 seeded sample offers use local representative photos stored in images/. They are explicitly labelled unverified and do not set image_verified. Reference-only catalog dishes have no dish-specific photos and use the local fallback illustration.
 
-2. NutriBot
-   - Page: frontend/chatbot.html.
-   - Uses current SQLite menu data and Markdown/TXT knowledge documents.
-   - Named dish requests can return structured food cards with Tamil name, category, ingredients, preparation notes, available nutrition, data status, and warnings.
-   - Health questions can return condition-specific suitability information and an uncertainty-aware nutrition panel.
-   - Missing nutrition, ingredients, allergens, and sodium remain unknown; the chatbot must not invent them.
-   - Existing endpoint: POST /api/chat. Alias: POST /api/nutribot/chat.
-   - When Gemini or Chroma is unavailable, the chatbot continues with local retrieval and source-based fallbacks.
+1. RESTAURANT MENU AND FOOD ORDERING
+------------------------------------
+- Retrieves food records from SQLite through GET /api/foods.
+- Supports text-based food search.
+- Supports category filtering.
+- Supports vegetarian, non-vegetarian, and egg-based filters.
+- Supports budget filtering and sorting.
+- Displays individual food details.
+- Supports adding food items to a browser-local cart.
+- Allows customers to submit orders and view order history.
+- Uses actual database prices rather than trusting client-submitted prices.
+- Blocks pending and unavailable food records from being ordered.
+- Displays missing nutritional values as unavailable rather than inventing values.
 
-3. NutriMatch
-   - Page: frontend/recommendation.html.
-   - Multi-step optional questionnaire for food goals, health considerations, dietary type, cuisine, allergies, nutrition preferences, taste, meal timing, budget, and optional measurements.
-   - Recommendation profile selections are request-scoped and not persisted. Age, height, weight, and activity inputs are not submitted for calorie calculations.
-   - Uses deterministic ranking with weights: goal 30%, nutrition preference 25%, cuisine 15%, taste 10%, budget 10%, and meal timing 10%.
-   - Allergy and strict dietary rules are applied before scoring. Unknown allergen declarations do not count as safe: items require restaurant verification. Pending catalog entries are never scored as current offers.
-   - Match scores are preference matches, not medical suitability scores.
+Food Images:
+- 16 seeded sample restaurant offers use representative local images stored in images/.
+- Image records are not marked as restaurant-verified.
+- Pending traditional dishes use a fallback illustration.
+- Pending records do not have confirmed exact-dish photos.
 
-4. Accounts, cart, and orders
-   - Customer registration, sign-in, session, password-reset routes, customer order history, and owner/admin order pages are present. Passwords are hashed and sessions use HTTP-only/same-site cookies, but this remains prototype authentication; registration does not verify email and reset delivery requires SMTP configuration.
-   - Cart data is held in browser localStorage.
-   - At order submission, the server checks the current SQLite food record and uses its price rather than trusting a catalog-only item or a client-submitted price.
-   - Payment processing and production deployment hardening are not complete.
+2. NUTRIBOT — RAG-BASED AI FOOD ASSISTANT
+----------------------------------------
+Page: frontend/chatbot.html
+
+NutriBot is a food-information assistant that combines live restaurant menu data with curated local knowledge documents.
+
+Core functionality:
+- Retrieves current menu information from SQLite.
+- Searches Markdown and TXT knowledge documents.
+- Provides structured food information.
+- Supports named food queries.
+- Provides food ingredients and preparation information when available.
+- Provides nutritional information when available.
+- Provides condition-specific food-suitability summaries with appropriate uncertainty.
+- Displays warnings and data verification status.
+- Uses source-based fallback responses when external AI services are unavailable.
+
+Named Food Responses:
+Can return structured food cards containing:
+- English food name.
+- Tamil food name.
+- Food category.
+- Ingredients.
+- Preparation notes.
+- Available nutritional information.
+- Data verification status.
+- Relevant warnings.
+
+Health-Related Responses:
+Can provide general food-suitability information for questions involving:
+- Diabetes and blood sugar.
+- Blood pressure.
+- Weight gain and weight management.
+- Heart-health considerations.
+- Other food-related health questions.
+
+Safety and Data Handling:
+- Missing nutrition values remain unknown.
+- Missing ingredients are not invented.
+- Unknown allergens are not treated as safe.
+- Missing sodium information is not estimated without evidence.
+- Food recommendations are informational, not medical prescriptions.
+
+API Endpoints:
+- POST /api/chat
+- POST /api/nutribot/chat
+
+Optional AI Integration:
+- Gemini can generate grounded responses when configured.
+- Chroma can provide semantic document retrieval.
+- Local keyword retrieval continues to work without Gemini or Chroma.
+
+3. NUTRIMATCH — PERSONALIZED FOOD RECOMMENDATIONS
+-------------------------------------------------
+Page: frontend/recommendation.html
+
+NutriMatch is a deterministic preference-based food recommendation system.
+
+It uses a multi-step optional questionnaire covering:
+- Food goals.
+- Health considerations.
+- Dietary type.
+- Cuisine preferences.
+- Allergies.
+- Nutrition preferences.
+- Taste preferences.
+- Meal timing.
+- Budget.
+- Optional personal measurements.
+
+Recommendation Weights:
+
+Goal                  : 30%
+Nutrition Preference  : 25%
+Cuisine               : 15%
+Taste                 : 10%
+Budget                : 10%
+Meal Timing           : 10%
+
+Total                 : 100%
+
+Recommendation Process:
+- Validates the submitted preference selections.
+- Retrieves current food records from SQLite.
+- Filters unavailable and pending food records.
+- Applies allergy and strict dietary restrictions.
+- Checks relevant price, meal, and cuisine conditions.
+- Calculates deterministic preference-matching scores.
+- Displays suitable matches, alternatives, and items requiring verification.
+- May include supporting knowledge-document excerpts.
+
+Safety Rules:
+- Allergy and strict dietary restrictions are applied before scoring.
+- Unknown allergen declarations require restaurant verification.
+- Pending catalog records are never treated as current restaurant offers.
+- Preference selections are request-scoped and are not persisted as recommendation profiles.
+- Age, height, weight, and activity inputs are not submitted for calorie-target calculations.
+- Match scores represent preference compatibility, not medical suitability.
+
+NutriMatch API Endpoints:
+- POST /api/nutrimatch/profile
+- POST /api/nutrimatch/recommendations
+- POST /api/nutrimatch/chat
+- GET /api/nutrimatch/foods
+- GET /api/nutrimatch/foods/<food_id>
+- GET /api/nutrimatch/categories
+- GET /api/nutrimatch/filters
+
+4. CUSTOMER ACCOUNTS, CART, AND ORDERS
+--------------------------------------
+Authentication:
+- Customer registration.
+- Customer sign-in.
+- Session management.
+- Password reset endpoints.
+- Werkzeug password hashing.
+- HTTP-only and SameSite session cookies.
+- Optional SMTP-based password reset email delivery.
+
+Cart:
+- Shopping cart data is stored using browser localStorage.
+- Customers can add and manage food items before submitting orders.
+
+Order Management:
+- Customer order submission.
+- Customer order history.
+- Owner/admin order routes.
+- Server-side validation of food IDs.
+- Database-based price verification.
+- Pending and unavailable items are blocked.
+
+Security Notes:
+- Authentication remains a prototype.
+- Registration does not verify email addresses.
+- Password reset delivery requires SMTP configuration.
+- Production authentication and authorization hardening are still required.
 
 CENTRAL FOOD DATABASE
 ---------------------
-The SQLite foods table is the shared source of truth for menu, NutriBot live menu retrieval, and NutriMatch. Current initialization adds nullable columns for Tamil name, stable food slug, preparation, serving size, fibre, sodium, allergens, cuisine, restaurant name, availability, nutrition provenance/confidence, dietary verification, allergen verification, exact-image verification, and catalog status.
+SQLite is the central source of truth for the restaurant menu.
 
-The current seeded menu contains 71 food records after initialization:
-- 16 existing seeded sample restaurant menu records.
-- 55 new Tamil traditional food reference records that still need restaurant confirmation.
+The shared foods table supplies data to:
+- Restaurant menu.
+- NutriBot live menu retrieval.
+- NutriMatch recommendations.
+- Food detail endpoints.
+- Order validation.
 
-Reference-only records have no assumed offer price, calories/macros, exact-dish photo, or live availability. They are marked reference_pending_restaurant_confirmation and pending_confirmation. This intentionally separates culinary reference data from confirmed restaurant offers. The 16 seeded offers have representative local photos in images/, but these are not verified as exact restaurant dishes.
+Database Initialization:
+- Creates the SQLite database when necessary.
+- Applies additive schema updates.
+- Seeds sample restaurant offers.
+- Adds traditional Tamil food reference records.
+
+Food Data Fields:
+- Tamil food name.
+- Stable food slug.
+- Food preparation information.
+- Serving size.
+- Calories and macronutrients.
+- Fibre and sodium.
+- Allergen declarations.
+- Cuisine.
+- Restaurant name.
+- Availability.
+- Nutrition provenance and confidence.
+- Dietary verification.
+- Allergen verification.
+- Exact-image verification.
+- Catalog status.
+
+CURRENT FOOD CATALOG
+--------------------
+The current initialized database contains 71 food records.
+
+16 seeded sample restaurant offers:
+- Existing sample restaurant menu records.
+- Representative local images.
+- Sample nutritional information, which may be estimated.
+- Not verified as exact restaurant photography.
+
+55 traditional Tamil food reference records:
+- Added as culinary reference records.
+- Pending restaurant confirmation.
+- No assumed offer prices.
+- No assumed calories or macronutrients.
+- No exact-dish photos.
+- No confirmed live availability.
+
+Pending records use:
+- reference_pending_restaurant_confirmation
+- pending_confirmation
+
+This separation prevents unverified culinary references from being treated as confirmed restaurant menu offers.
 
 KEY API ROUTES
 --------------
-General:
+
+General API:
 - GET  /api/test
 - GET  /api/foods
 - GET  /api/foods/categories
 - GET  /api/foods/<food_id>
 - GET  /api/foods/healthy
 - POST /api/orders
+
+NutriBot:
 - POST /api/chat
 - POST /api/nutribot/chat
 
@@ -107,59 +319,321 @@ NutriMatch:
 
 HOW THE SYSTEM WORKS
 --------------------
-Menu flow:
-Browser menu page -> GET /api/foods -> Flask reads SQLite -> browser renders the shared food records. Search and filters run in the browser. Order submission is checked against the database for a real price and orderable status.
 
-NutriBot flow:
-Customer question -> POST /api/chat (or /api/nutribot/chat) -> Flask validates it -> RAG loads current menu rows from SQLite and local Markdown/TXT documents -> retrieval selects supporting context -> deterministic health/food response builders produce structured data for named foods and health questions -> browser renders cards. General questions keep the existing source-grounded chatbot response path. Optional Gemini/Chroma provides semantic retrieval or generated explanations when configured; it is not required for baseline functionality.
+1. MENU AND ORDER FLOW
 
-NutriMatch flow:
-Browser questionnaire -> POST /api/nutrimatch/profile validates the optional choices -> POST /api/nutrimatch/recommendations loads current SQLite rows -> unavailable and pending items, price/meal/cuisine mismatches, allergy conflicts, and strict dietary mismatches are filtered -> eligible foods receive a documented deterministic score -> retrieved guidance may add source excerpts -> browser displays best matches, alternatives, and items requiring verification.
+Customer opens the menu page
+        |
+        v
+Browser requests GET /api/foods
+        |
+        v
+Flask API retrieves food records
+        |
+        v
+SQLite database
+        |
+        v
+Frontend renders menu items
+        |
+        v
+Customer searches, filters, and selects food
+        |
+        v
+Items are added to browser-local cart
+        |
+        v
+Customer submits an order
+        |
+        v
+Server validates food IDs, prices,
+and orderable availability
+        |
+        v
+Order is processed and stored
+
+2. NUTRIBOT RAG FLOW
+
+Customer enters a food-related question
+        |
+        v
+POST /api/chat
+(or POST /api/nutribot/chat)
+        |
+        v
+Flask validates the request
+        |
+        v
+RAG retrieves current SQLite menu data
+and local Markdown/TXT knowledge
+        |
+        v
+Retrieval selects relevant supporting context
+        |
+        v
+Structured response generation
+        |
+        v
+Optional Gemini/Chroma integration
+        |
+        v
+Frontend displays structured food cards
+and supporting information
+
+Without Gemini or Chroma, local retrieval and source-based fallback responses continue to work.
+
+3. NUTRIMATCH RECOMMENDATION FLOW
+
+Customer completes optional questionnaire
+        |
+        v
+POST /api/nutrimatch/profile
+        |
+        v
+Preference validation
+        |
+        v
+POST /api/nutrimatch/recommendations
+        |
+        v
+Retrieve current SQLite food records
+        |
+        v
+Apply availability, price, dietary,
+allergy, and preference filters
+        |
+        v
+Calculate deterministic matching scores
+        |
+        v
+Retrieve relevant guidance if needed
+        |
+        v
+Display best matches, alternatives,
+and items requiring verification
 
 KNOWLEDGE DOCUMENTS
 -------------------
-rag/documents/ includes Tamil food and nutrition reference material, traditional recipes, ingredient/allergy guidance, cooking methods, health and weight considerations, restaurant menu policy, metadata guidance, and FAQs. These files support explanations; the live SQLite database remains authoritative for menu items, price, and current restaurant data.
+The rag/documents/ directory contains curated knowledge sources used by NutriBot.
 
-HOW TO RUN LOCALLY
-------------------
-Requirements: Python 3.10+ and pip.
+The knowledge base includes:
+- Tamil traditional food information.
+- Nutrition reference material.
+- Traditional recipes.
+- Ingredient and allergen guidance.
+- Cooking methods.
+- General health and food considerations.
+- Weight-management information.
+- Restaurant menu policies.
+- Food metadata guidance.
+- Frequently asked questions.
 
-1. From the project root, install dependencies:
-   python -m pip install -r requirements.txt
+The SQLite database remains authoritative for current restaurant menu information, prices, and availability.
 
-2. Start the Flask API in a terminal:
-   python backend/app.py
-   API base: http://127.0.0.1:5000
+Knowledge documents provide supporting explanations and must not override current database records.
 
-3. In a second terminal, serve the frontend (or start VS Code Live Server):
-   python -m http.server 8000
+LOCAL DEVELOPMENT SETUP
+-----------------------
+Requirements:
+- Python 3.10 or above.
+- pip.
+- Git (recommended).
+- VS Code (recommended).
 
-4. Open:
-   http://localhost:8000/frontend/index.html
-   Menu: http://localhost:8000/frontend/menu.html
-   NutriBot: http://localhost:8000/frontend/chatbot.html
-   NutriMatch: http://localhost:8000/frontend/recommendation.html
+Step 1: Install Dependencies
 
-The database schema and seed/catalog initialization run when Flask starts. VS Code Live Server commonly uses port 5500; that origin is allowed in the default local CORS configuration.
-
-OPTIONAL RAG CONFIGURATION
---------------------------
-Set GEMINI_API_KEY in the server environment (never in browser JavaScript). Run python -m rag.ingest from the project root to build/refresh the optional Chroma index. Live menu content comes from SQLite for every chat request; curated local documents also have a keyword fallback. A Chroma index can be omitted for local development.
-
-TESTS
------
 From the project root:
+
+python -m pip install -r requirements.txt
+
+Step 2: Start Flask Backend
+
+python backend/app.py
+
+Default API address:
+
+http://127.0.0.1:5000
+
+Step 3: Start Frontend
+
+Open a second terminal from the project root:
+
+python -m http.server 8000
+
+Alternatively, use VS Code Live Server.
+
+Step 4: Open Application
+
+Home:
+http://localhost:8000/frontend/index.html
+
+Menu:
+http://localhost:8000/frontend/menu.html
+
+NutriBot:
+http://localhost:8000/frontend/chatbot.html
+
+NutriMatch:
+http://localhost:8000/frontend/recommendation.html
+
+API Health Check:
+http://127.0.0.1:5000/api/test
+
+The database initialization, schema migration, and seed operations run when Flask starts.
+
+The default local CORS configuration allows frontend development origins on ports 8000 and 5500.
+
+DATABASE CONFIGURATION
+----------------------
+By default, the application uses:
+
+nutriorder.db
+
+This database is located at the project root.
+
+To use another database file, configure:
+
+NUTRIORDER_DB
+
+The value can be an absolute path or a path relative to the project root.
+
+OPTIONAL GEMINI AND RAG CONFIGURATION
+------------------------------------
+Gemini and semantic retrieval are optional.
+
+To enable Gemini:
+1. Create or obtain a Gemini API key.
+2. Configure GEMINI_API_KEY in the backend environment or local .env file.
+3. Restart the Flask backend.
+
+Example:
+
+GEMINI_API_KEY=your_api_key_here
+
+To build or refresh the optional Chroma index:
+
+python -m rag.ingest
+
+Run the command from the repository root after configuring the required API key.
+
+Important:
+- Keep all provider keys on the backend.
+- Never expose API keys in browser JavaScript.
+- Never commit .env to GitHub.
+- Chroma indexing is optional.
+- Live menu information is retrieved from SQLite for chat requests.
+- Local keyword retrieval remains available without the vector index.
+
+DEPENDENCIES
+------------
+Core dependencies:
+- Flask
+- Flask-Cors
+- python-dotenv
+
+Optional AI/RAG dependencies:
+- langchain-chroma
+- langchain-google-genai
+
+Install all configured dependencies using:
+
+python -m pip install -r requirements.txt
+
+The core application does not require Gemini or Chroma for basic menu, SQLite, keyword retrieval, and deterministic recommendation functionality.
+
+TESTING
+-------
+Run the automated integration and business-rule tests from the project root:
+
 python -m unittest discover -s tests -v
 
-The tests cover health/RAG behavior, NutriMatch filters and scoring, API routes, food catalog consistency, missing data, allergen safeguards, and fallback behavior. The most recent documentation review ran 37 tests successfully.
+The test suite covers:
+- NutriBot health and retrieval behavior.
+- NutriMatch preference filters.
+- NutriMatch scoring logic.
+- Flask API routes.
+- Tamil food catalog consistency.
+- Missing nutritional data.
+- Allergen safeguards.
+- Fallback behavior.
 
-DATA AND SAFETY LIMITATIONS
----------------------------
-- Sample menu calories/macronutrients may be estimates, not verified measurements.
-- Many new Tamil dish records are references, not confirmed restaurant offerings.
-- Nutrition, price, stock, exact photo, serving size, complete ingredients, and allergen declarations remain null/unverified until restaurant staff confirm them. Local representative photos are not exact-dish verification.
-- Do not interpret null as zero, allergen-free, or unavailable forever.
-- Do not use the assistant for diagnosis, treatment, medication changes, or a prescribed medical diet.
-- Allergy safety must be confirmed with restaurant staff, including cross-contact.
-- Demo credentials and authentication limitations are documented in PROJECT_STATUS.md. Do not deploy the prototype publicly with demo credentials.
-- Production payment processing, live inventory operations, complete admin/menu management, and deployment hardening are not complete.
+Latest documented test review:
+37 tests passed on 2026-11-06.
+
+This result reflects the documented review and should be rechecked after subsequent code changes.
+
+DOCUMENTATION FILES
+-------------------
+README.md:
+Project introduction, features, technology stack, installation,
+configuration, and usage instructions.
+
+PROJECT_STATUS.md:
+Implemented functionality, test results, demo accounts,
+known limitations, and future development priorities.
+
+PROJECT_OVERVIEW.txt:
+Detailed technical implementation, architecture,
+database, API, and system workflows.
+
+docs/ARCHITECTURE.md:
+Long-term architecture and system design documentation.
+
+DATA ACCURACY AND SAFETY LIMITATIONS
+------------------------------------
+- Seeded sample food calories and macronutrients may be estimates.
+- Traditional Tamil dish references are not necessarily restaurant offerings.
+- Missing nutrition values must remain unknown, not zero.
+- Missing prices must not be treated as free food.
+- Local representative photos are not exact-dish verification.
+- Recipes, serving sizes, ingredients, allergens, and cross-contact information require restaurant confirmation.
+- Food availability must be confirmed using current restaurant data.
+- NutriBot does not diagnose medical conditions or prescribe treatment.
+- NutriMatch does not calculate clinical nutritional targets.
+- Neither NutriBot nor NutriMatch guarantees allergy safety.
+- Customers must confirm allergy and cross-contact risks directly with restaurant staff.
+- Demo credentials must never be used for real accounts or public deployments.
+
+CURRENT DEVELOPMENT LIMITATIONS
+-------------------------------
+The following capabilities are not yet complete:
+
+- Production payment processing.
+- Live restaurant inventory management.
+- Full restaurant owner/admin menu management.
+- Complete owner/admin analytics.
+- Production authentication and security hardening.
+- Email verification.
+- Production deployment and operations.
+
+FUTURE DEVELOPMENT
+------------------
+Potential future improvements:
+
+1. Complete restaurant owner and admin management.
+2. Verified traditional Tamil food catalog.
+3. Improved NutriBot retrieval and answer evaluation.
+4. Better food recommendation personalization.
+5. Live inventory and availability updates.
+6. Payment gateway integration.
+7. Restaurant analytics and reporting.
+8. Production-ready authentication and deployment.
+9. Improved restaurant-specific nutrition and allergen verification.
+
+PROJECT INFORMATION
+-------------------
+Project Name       : NutriOrder AI
+Application Type   : Restaurant Menu, Ordering & Food Discovery
+Domain             : Artificial Intelligence & Data Science
+Frontend           : HTML, CSS, JavaScript
+Backend            : Python, Flask
+Database           : SQLite
+AI Integration     : Google Gemini (Optional)
+RAG                : Local Retrieval + Optional Semantic Retrieval
+Vector Database    : ChromaDB (Optional)
+Development Status : Active Development / Functional Prototype
+Last Review        : 2026-11-06
+
+================================
+END OF PROJECT OVERVIEW
+================================
